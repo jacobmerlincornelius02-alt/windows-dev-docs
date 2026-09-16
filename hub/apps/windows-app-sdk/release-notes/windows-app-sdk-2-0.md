@@ -14,6 +14,89 @@ zone_pivot_groups: wasdk-release-channels
 
 :::zone pivot="stable"
 
+## Version 2.2.0
+
+Released: **June 9, 2026** <br><br>
+
+<details><summary>Video Super Resolution AI API</summary>
+
+>
+> The `Microsoft.Windows.AI.Video.VideoScaler` API delivers real-time video enhancement through advanced AI upscaling, optimized for streams featuring people in conversation. It enables developers to provide sharper, clearer visuals across conferencing, streaming, and editing platforms, even under poor network conditions. The API supports customization of output resolution, frame rate, and regions of interest, with compatibility for multiple video formats including BGR, RGB, and NV12.
+>
+> `VideoScaler` is disposable, and includes a capability check so apps can validate VSR support at runtime. Explicit Windows ML initialization is not required.
+>
+
+</details>
+
+<details><summary>New ApplicationData API for Unpackaged Apps</summary>
+
+>
+> A new `Microsoft.Windows.Storage.ApplicationData.GetForUnpackaged()` API gives unpackaged apps a first-class WinRT entry point to per-user/per-machine application data, matching the surface previously available only to packaged apps. This simplifies future packaged↔unpackaged migration and removes the need for Registry-API workarounds.
+>
+
+</details>
+
+<details><summary>New XamlBindingHelper APIs</summary>
+
+>
+> Added boxing-free value setter overloads to `XamlBindingHelper` (`SetPropertyFromThickness`, `SetPropertyFromCornerRadius`, `SetPropertyFromColor`) and exposed the `Setter.ValueProperty` dependency property.
+>
+
+</details>
+
+<details><summary>Bug fixes</summary>
+
+>
+> - Fixed a crash in `RenderTargetBitmap` when the target element leaves the visual tree (for example, a popup closes) before `PreCommit` completes. `RenderAsync` now returns `E_ABORT` instead of crashing. ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): RenderTargetBitmap_PreCommitCrashOnTreeLeave)
+> - Fixed a use-after-free crash in `ScrollView` when the control is destroyed while its hide-indicators timer tick is still pending. For more info, see GitHub issue [#10514](https://github.com/microsoft/microsoft-ui-xaml/issues/10514). ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): ScrollView_HideIndicatorsTimerUseAfterFree)
+> - Fixed a potential crash in `Microsoft.UI.Xaml.dll!DirectUI::DXamlCore::GetPeerPrivate` caused by attempting to access an object scheduled to be freed. ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): GetPeerPrivate_UseAfterFree)
+> - Fixed an issue where `Microsoft.UI.System.ThemeSettings` could crash an app if it was destroyed on a background thread (for example, when destroyed by the .NET garbage collector). ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): ThemeSettings_OffThreadDestructorFix)
+> - Fixed a crash that could occur on certain devices when active touch contacts were canceled by input hardware, such as when pen input overrides them. ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): InputPointerSource_PointerCancelCrashFix)
+> - Fixed an issue where sparse-packaged apps were unable to discover module-specific PRI files. For more info, see GitHub issue [#6375](https://github.com/microsoft/WindowsAppSDK/issues/6375). ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): MRTCore_SparsePackagedPriFallback)
+> - Fixed a string ownership bug when using the Flat-C Windows ML Catalog API. ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): WindowsMLFlatCCatalog_CallbackStringOwnership)
+> - Fixed a potential issue in Windows ML during process shutdown. ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): WindowsML_ComRundownFix)
+> - Fixed potential COM initialization and teardown issues in Windows ML. ([RuntimeCompatibilityChange](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.windowsappruntime.runtimecompatibilityoptions.disabledchanges): WindowsML_ComInitializationFix)
+>
+
+</details>
+
+<details><summary>New or updated APIs</summary>
+
+>
+> This release includes the following new APIs compared to the 2.1.3 release:
+>
+> ```
+> Microsoft.UI.Xaml
+>
+>     Setter
+>         ValueProperty
+> ```
+ > ```
+> Microsoft.UI.Xaml.Markup
+>
+>     XamlBindingHelper
+>         SetPropertyFromColor
+>         SetPropertyFromCornerRadius
+>         SetPropertyFromThickness
+> ```
+ > ```
+> Microsoft.Windows.AI.Video
+>
+>     VideoScaler
+>     VideoScalerOptions
+>     VideoScalerResult
+>     VideoScalerStatus
+> ```
+ > ```
+> Microsoft.Windows.Storage
+>
+>     ApplicationData
+>         GetForUnpackaged
+> ```
+>
+
+</details>
+
 ## Version 2.1.3
 
 Released: **May 21, 2026** <br><br>
@@ -792,6 +875,95 @@ Released: **February 13, 2026** <br><br>
 :::zone-end
 
 :::zone pivot="experimental"
+
+## Version 2.2 Experimental 9 (2.2.2-Experimental9)
+
+Released: **June 9, 2026**
+
+This experimental release ships alongside [Windows App SDK 2.2.0 stable](#version-220) and generally brings over the changes from that release; see the [2.2.0 stable notes](#version-220) for those details. The sections below describe the experimental-only additions.
+<br><br>
+
+<details><summary>Language Model APIs on GPU [Experimental]</summary>
+
+>
+> The Language Model APIs now run on non-Copilot+ PCs equipped with a supported GPU, bringing local language model capabilities to a broader range of Windows 11 devices. Supported hardware includes NVIDIA GeForce RTX 30 series and newer with 6+ GB vRAM. GPU inference requires Developer Mode to be enabled and a Windows Insider Experimental Channel build.
+>
+> The GPU model is not pre-installed. It is downloaded on demand via `EnsureReadyAsync` through Windows Update. Apps should check `GetReadyState` and display a consent dialog before triggering the download. Users can manage the model at Settings > System > AI Components.
+>
+> For responsible AI guidance, see the new Transparency Note: Language Model APIs on Non-Copilot+ PCs.
+>
+
+</details>
+
+<details><summary>Speech Recognition APIs [Experimental]</summary>
+
+>
+> New on-device speech recognition APIs in `Microsoft.Windows.AI.Speech` enable both batch and streaming speech-to-text. `BatchRecognition` recognizes a complete audio source in a single call, and `StreamingRecognition` raises `Recognizing` and `Recognized` events. Audio can be sourced from a device (`AudioConfiguration.FromAudioDevice`), file (`FromFile`), input stream (`FromStream`), or pushed by the caller via `SpeechAudioProvider` (16 kHz, 16-bit, single-channel PCM). The on-device model is managed via `SpeechRecognitionModel.EnsureReadyAsync` / `TryCreateAsync`, with download and load progress reported through `SpeechRecognitionModelProgress`.
+>
+
+</details>
+
+<details><summary>New NpuType API</summary>
+
+>
+> A new `Microsoft.Windows.Workloads.NpuType` enum surfaces the NPU class on the current device (for example, `Qnn`, `Lnl`, `Stx`, `Win365`, `Unknown`, `None`), so apps and Workloads infrastructure can route AI workloads to the appropriate execution path.
+>
+
+</details>
+
+<details><summary>New or updated APIs</summary>
+
+>
+> This release includes the following new APIs compared to the **[2.1 Experimental 8](#version-21-experimental-8-214-experimental8)** release:
+>
+> ```
+> Microsoft.UI.Xaml
+>
+>     Setter
+>         ValueProperty
+> ```
+ > ```
+> Microsoft.UI.Xaml.Markup
+>
+>     XamlBindingHelper
+>         SetPropertyFromColor
+>         SetPropertyFromCornerRadius
+>         SetPropertyFromThickness
+> ```
+ > ```
+> Microsoft.Windows.AI.Speech
+>
+>     AudioConfiguration
+>     BatchRecognition
+>     SpeechAudioProvider
+>     SpeechContract
+>     SpeechRecognitionModel
+>     SpeechRecognitionModelProgress
+>     SpeechRecognitionModelProgressStatus
+>     SpeechRecognitionModelResult
+>     StreamingRecognition
+>     StreamingRecognizedEventArgs
+>     StreamingRecognizingEventArgs
+> ```
+ > ```
+> Microsoft.Windows.AI.Text.Experimental
+>
+>     LanguageModelExperimental
+>         CompressPromptAsync
+>         GenerateResponseAsync
+>         GenerateResponseFromEmbeddingsAsync
+>
+>     LanguageModelOptionsExperimental
+>         PreferredRetentionRatio
+> ```
+ > ```
+> Microsoft.Windows.Workloads
+>
+>     NpuType
+> ```
+>
+
+</details>
 
 ## Version 2.1 Experimental 8 (2.1.4-Experimental8)
 

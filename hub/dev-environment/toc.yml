@@ -34,12 +34,12 @@ items:
         href: ../advanced-settings/sudo/index.md
       - name: tar
         href: ../tar/index.md
-  - name: Dev Configs
-    href: ../dev-configs/index.md
   - name: PowerToys
     href: /windows/powertoys/
   - name: WinGet
     href: /windows/package-manager/
+  - name: Windows Dev Configs
+    href: ../dev-configs/index.md
   - name: Windows Subsystem for Linux
     href: /windows/wsl/
   - name: Windows Terminal
@@ -84,7 +84,7 @@ items:
     href: /cpp/
   - name: C#
     href: /dotnet/csharp/
-  - name: Docker
+  - name: Docker and containers
     items:
       - name: Overview
         href: ./docker/overview.md

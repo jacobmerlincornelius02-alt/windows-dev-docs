@@ -2,7 +2,7 @@
 description: An overview of the Windows developer platform, SDKs, and app frameworks
 title: Windows developer platform overview
 ms.topic: overview
-ms.date: 02/13/2026
+ms.date: 06/17/2026
 keywords: windows, desktop development, windows sdk, windows app sdk, winui
 ms.localizationpriority: medium
 #customer intent: To understand the Windows developer platform, how the SDKs fit together, and how to choose the right app framework.
@@ -38,16 +38,20 @@ The [Windows App SDK](../windows-app-sdk/index.md) is a modern SDK that builds o
 
 :::image type="content" source="images/winui-header.png" alt-text="WinUI logo.":::
 
-[WinUI](../winui/index.md) is the recommended native UI framework for building modern Windows apps. Built on the [Windows App SDK](../windows-app-sdk/index.md), WinUI uses XAML markup and C# or C++ to create apps with the [Fluent Design](https://fluent2.microsoft.design/) look and feel that Windows users expect. If you're new to Windows development or starting a new project, WinUI is the best place to start.
+[WinUI](../winui/winui3/index.md) is the recommended native UI framework for building modern Windows apps. Built on the [Windows App SDK](../windows-app-sdk/index.md), WinUI uses XAML markup and C# or C++ to create apps with the [Fluent Design](https://fluent2.microsoft.design/) look and feel that Windows users expect. If you're new to Windows development or starting a new project, WinUI is the best place to start.
 
 <div class="buttons margin-top-xs">
-    <a href="../winui/index.md"
+    <a href="../winui/winui3/index.md"
        class="button button-sm">
         <span>Learn more about WinUI</span>
     </a>
     <a href="start-here.md"
        class="button button-sm">
         <span>Get started with WinUI</span>
+    </a>
+    <a href="../tutorials/winui-notes/intro.md"
+       class="button button-sm">
+        <span>Try a tutorial</span>
     </a>
 </div>
 
@@ -59,13 +63,13 @@ Windows also supports a variety of other native and cross-platform frameworks fo
 
 ##### WPF
 
-[WPF](/dotnet/desktop/wpf/overview/) is a well-established XAML-based framework for Windows desktop apps built on .NET. It provides a comprehensive set of features including controls, data binding, layout, graphics, and styles. If you have an existing WPF app, you can modernize it with the [Windows App SDK](../windows-app-sdk/wpf-plus-winappsdk.md).
+[WPF](/dotnet/desktop/wpf/overview/) is a well-established XAML-based framework for Windows desktop apps built on .NET. It provides a comprehensive set of features including controls, data binding, layout, graphics, and styles. If you have an existing WPF app, you can modernize it with the [Windows App SDK](../windows-app-sdk/use-windows-app-sdk-in-existing-project.md).
 
 [Get started with WPF →](/dotnet/desktop/wpf/overview/)
 
 ##### Windows Forms
 
-[Windows Forms](/dotnet/desktop/winforms/overview/) is a rapid application development platform for .NET with a drag-and-drop visual designer and a large collection of built-in controls. It's a great choice for quickly building line-of-business and data-driven desktop apps. Existing Windows Forms apps can be modernized with the [Windows App SDK](../windows-app-sdk/winforms-plus-winappsdk.md).
+[Windows Forms](/dotnet/desktop/winforms/overview/) is a rapid application development platform for .NET with a drag-and-drop visual designer and a large collection of built-in controls. It's a great choice for quickly building line-of-business and data-driven desktop apps. Existing Windows Forms apps can be modernized with the [Windows App SDK](../windows-app-sdk/use-windows-app-sdk-in-existing-project.md).
 
 [Get started with Windows Forms →](/dotnet/desktop/winforms/overview/)
 
@@ -101,16 +105,22 @@ The [Universal Windows Platform (UWP)](/windows/uwp/) provides a common API surf
 
 [Get started with PWAs →](/microsoft-edge/progressive-web-apps-chromium/how-to/)
 
+##### Electron
+
+[Electron](https://www.electronjs.org/) lets you build cross-platform desktop apps using JavaScript, HTML, and CSS. On Windows, you can use the [winapp CLI](../dev-tools/winapp-cli/index.md) to add native Windows features to your Electron app, including notifications, packaging, and AI capabilities.
+
+[Get started with Electron on Windows →](../dev-tools/winapp-cli/guides/electron-index.md)
+
 ---
 
 ## Feature comparison
 
-| Feature | WinUI | WPF | Windows Forms | .NET MAUI | React Native | UWP | Win32 |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| **Language** | C#, C++ | C#, Visual Basic | C#, Visual Basic | C# | JavaScript, TypeScript | C#, C++, Visual Basic | C++, Rust |
-| **UI language** | XAML | XAML | Code | XAML/Code | JSX | XAML | Code |
-| **UI designer** (drag & drop) | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ |
-| **Modern UI** | ✅ | ✅ ([Fluent theme](/dotnet/desktop/wpf/whats-new/net90#fluent-theme)) | ❌ | ✅ | ✅ | ✅ ([WinUI 2](/windows/apps/winui/winui2)) | ❌ |
-| **Cross-platform** | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ |
-| **Sandboxing (AppContainer)** | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
-| **Actively maintained** | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ Security & bug fixes only | ✅ |
+| Feature | WinUI | WPF | Windows Forms | .NET MAUI | React Native | Electron | UWP | Win32 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Language** | C#, C++ | C#, Visual Basic | C#, Visual Basic | C# | JavaScript, TypeScript | JavaScript, TypeScript | C#, C++, Visual Basic | C++, Rust |
+| **UI language** | XAML | XAML | Code | XAML/Code | JSX | HTML/CSS | XAML | Code |
+| **UI designer** (drag & drop) | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Modern UI** | ✅ | ✅ ([Fluent theme](/dotnet/desktop/wpf/whats-new/net90#fluent-theme)) | ❌ | ✅ | ✅ | ✅ (web-based) | ✅ ([WinUI 2](/windows/apps/winui/winui2)) | ❌ |
+| **Cross-platform** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| **Sandboxing** | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ |
+| **Actively maintained** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ Security & bug fixes only | ✅ |
