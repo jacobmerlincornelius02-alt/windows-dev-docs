@@ -3,8 +3,8 @@ title: Windows Dev Kit 2023 (Project Volterra)
 description: Powered by Arm64 and running Windows 11, this desktop device enables you to develop Windows apps for Arm, on Arm. Find device specifications, set up instructions, Arm-native developer tools, Support, and FAQs. 
 ms.date: 07/29/2023
 ms.topic: article
-ms.prod: windows
-ms.technology: arm
+ms.service: windows
+ms.subservice: arm
 author: mattwojo
 ms.author: mattwoj
 ---
@@ -105,7 +105,7 @@ Bringing together local compute on the CPU, GPU, and NPU and cloud compute with 
 
     Unlock the NPU power to accelerate AI/ML workloads using ONNX Runtime with frameworks like PyTorch or TensorFlow - get started with these instructions and tutorials.
 
-- **[Qualcomm developer network: Windows on Snapdragon](https://developer.qualcomm.com/hardware/windows-on-snapdragon)**
+- **[Qualcomm developer network: Windows on Snapdragon](https://www.qualcomm.com/developer/windows-on-snapdragon#overview)**
 
     Learn more about the Snapdragon compute platform that powers Windows on Snapdragon® devices with native AArch64 (64-bit Arm) app support. You will also find a link to download the **Qualcomm Neural Processing SDK for Windows**. The Qualcomm® Neural Processing SDK is engineered to help developers save time and effort in optimizing performance of trained neural networks on devices with Qualcomm® AI products.
 

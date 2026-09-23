@@ -1,7 +1,7 @@
 ---
 title: PowerToys PowerRename utility for Windows
 description: A windows shell extension for bulk renaming of files
-ms.date: 08/03/2023
+ms.date: 08/06/2023
 ms.topic: article
 ms.localizationpriority: medium
 no-loc: [PowerRename, Windows, File Explorer, regex, Boost]
@@ -25,7 +25,7 @@ In this demo, all instances of the file name "foo" are replaced with "foobar". S
 
 ## PowerRename window
 
-After selecting files in Windows File Explorer, right-click and select **PowerRename** (which will appear only if enabled in PowerToys). The selected items will be displayed, along with search and replace values, a list of options, and a preview pane displaying results of the search and replace values entered.
+After selecting files in Windows File Explorer, right-click and select **Resize with PowerRename** (which will appear only if enabled in PowerToys). The selected items will be displayed, along with search and replace values, a list of options, and a preview pane displaying results of the search and replace values entered.
 
 ![PowerRename Menu screenshot.](../images/powerrename-menu.png)
 
@@ -87,34 +87,55 @@ Choose between four options to either convert items to be all lowercase, all upp
 
 ### Enumerate items
 
-Appends a numeric suffix to file names that were modified in the operation. For example: `foo.jpg` → `foo (1).jpg`
+If selected, you can use the following patterns as part of the _Replace with_ text:
+
+| Variable pattern | Explanation                                                            |
+|:-----------------|:-----------------------------------------------------------------------|
+| `${}`            | A simple counter that will start from zero for the first renamed file. |
+| `${increment=X}` | A counter with a customized incrementer value.                         |
+| `${padding=X}`   | A counter with a specified number of leading zeroes for the number.    |
+| `${start=X}`     | A counter with a customized initial value.                             |
+
+You can also use multiple counters in the same replace string and combine customizations.
+
+For example, given a _Search_ text `a` and a set of files:
+
+- a.jpg
+- ab.jpg
+- abc.jpg
+
+A _Replace with_ text `Image_${padding=4;increment=2;start=10}_` would produce the following:
+
+- Image_0010_.jpg
+- Image_0012_b.jpg
+- Image_0014_bc.jpg
 
 ## Replace using file creation date and time
 
 The creation date and time attributes of a file can be used in the _Replace with_ text by entering a variable pattern according to the table below. Selecting the tool-tip in the _Replace with_ field allows you to view and select from the supported patterns.
 
-| Variable pattern | Explanation
+| Variable pattern | Explanation |
 | :---             | :--- |
-| `$YYYY`          | Year, represented by a full four or five digits, depending on the calendar used.
-| `$YY`            | Year, represented only by the last two digits. A leading zero is added for single-digit years.
-| `$Y`             | Year, represented only by the last digit.
-| `$MMMM`          | Name of the month.
-| `$MMM`           | Abbreviated name of the month.
-| `$MM`            | Month, as digits with leading zeros for single-digit months.
-| `$M`             | Month, as digits without leading zeros for single-digit months.
-| `$DDDD`          | Name of the day of the week.
-| `$DDD`           | Abbreviated name of the day of the week.
-| `$DD`            | Day of the month, as digits with leading zeros for single-digit days.
-| `$D`             | Day of the month, as digits without leading zeros for single-digit days.
-| `$hh`            | Hours, with leading zeros for single-digit hours.
-| `$h`             | Hours, without leading zeros for single-digit hours.
-| `$mm`            | Minutes, with leading zeros for single-digit minutes.
-| `$m`             | Minutes, without leading zeros for single-digit minutes.
-| `$ss`            | Seconds, with leading zeros for single-digit seconds.
-| `$s`             | Seconds, without leading zeros for single-digit seconds.
-| `$fff`           | Milliseconds, represented by full three digits.
-| `$ff`            | Milliseconds, represented only by the first two digits.
-| `$f`             | Milliseconds, represented only by the first digit.
+| `$YYYY`          | Year, represented by a full four or five digits, depending on the calendar used. |
+| `$YY`            | Year, represented only by the last two digits. A leading zero is added for single-digit years. |
+| `$Y`             | Year, represented only by the last digit. |
+| `$MMMM`          | Name of the month. |
+| `$MMM`           | Abbreviated name of the month. |
+| `$MM`            | Month, as digits with leading zeros for single-digit months. |
+| `$M`             | Month, as digits without leading zeros for single-digit months. |
+| `$DDDD`          | Name of the day of the week. |
+| `$DDD`           | Abbreviated name of the day of the week. |
+| `$DD`            | Day of the month, as digits with leading zeros for single-digit days. |
+| `$D`             | Day of the month, as digits without leading zeros for single-digit days. |
+| `$hh`            | Hours, with leading zeros for single-digit hours. |
+| `$h`             | Hours, without leading zeros for single-digit hours. |
+| `$mm`            | Minutes, with leading zeros for single-digit minutes. |
+| `$m`             | Minutes, without leading zeros for single-digit minutes. |
+| `$ss`            | Seconds, with leading zeros for single-digit seconds. |
+| `$s`             | Seconds, without leading zeros for single-digit seconds. |
+| `$fff`           | Milliseconds, represented by full three digits. |
+| `$ff`            | Milliseconds, represented only by the first two digits. |
+| `$f`             | Milliseconds, represented only by the first digit. |
 
 For example, given the file names:
 
@@ -176,9 +197,9 @@ _When using the variables, "Match all occurrences" must be selected._
 
 There are great examples/cheatsheets available online to help you:
 
-[Regex tutorial — A quick cheatsheet by examples](https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285)
+[Regular Expression Tutorial](https://www.regular-expressions.info/tutorial.html)
 
-[ECMAScript Regular Expressions Tutorial](https://o7planning.org/en/12219/ecmascript-regular-expressions-tutorial)
+[JavaScript Regular Expressions Tutorial with Examples](https://o7planning.org/12219/javascript-regular-expression)
 
 ## File list filters
 

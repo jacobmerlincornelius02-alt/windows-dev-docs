@@ -1,12 +1,11 @@
 ---
 title: Web development on Windows
-description: A guide to Microsoft web development tools available on Windows, including Microsoft Edge, DevTools, WebView, PWAs, Visual Studio Code extensions, virtual machines, terminal, package manager, and more. 
-author: mattwojo 
-ms.author: mattwoj 
+description: A guide to Microsoft web development tools available on Windows, including Microsoft Edge, DevTools, WebView, PWAs, Visual Studio Code extensions, virtual machines, terminal, package manager, and more.
+author: mattwojo
+ms.author: mattwoj
 manager: jken
 ms.topic: article
-ms.custom: seo-windows-dev
-ms.date: 04/14/2022
+ms.date: 11/28/2023
 ---
 
 # Web development on Windows
@@ -58,10 +57,10 @@ Microsoft offers a variety of resources for web developers, including new tools 
         [Download Microsoft Edge channel](https://www.microsoft.com/edge/business/download)
     :::column-end:::
     :::column:::
-        [![Microsoft Edge Insider icon](../images/microsoftedge-beta.png)](https://www.microsoftedgeinsider.com/whats-new)<br>
-        **[Microsoft Edge Insider](https://www.microsoftedgeinsider.com/whats-new)**<br>
+        [![Microsoft Edge Insider icon](../images/microsoftedge-beta.png)](https://www.microsoft.com/edge/download/insider)<br>
+        **[Microsoft Edge Insider](https://www.microsoft.com/edge/download/insider)**<br>
         We're building something new for Microsoft Edge every day. Learn about our recent progress and how you can get involved.
-        [Download Microsoft Edge Beta version](https://www.microsoftedgeinsider.com/)
+        [Download Microsoft Edge Beta version](https://www.microsoft.com/edge/download/insider)
     :::column-end:::
     :::column:::
         [![Microsoft Edge Support icon](../images/microsoftedge-support.png)](https://support.microsoft.com/microsoft-edge)<br>
@@ -79,12 +78,6 @@ Microsoft offers a variety of resources for web developers, including new tools 
         **[Microsoft Edge Tools for VS Code](/microsoft-edge/visual-studio-code/microsoft-edge-devtools-extension)**<br>
         Without leaving Visual Studio Code, use Microsoft Edge DevTools to connect to an instance and view the runtime HTML structure, change layouts, styles (CSS), read console messages, and view network requests.<br>
         [Install Microsoft Edge Tools for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-edgedevtools.vscode-edge-devtools)
-    :::column-end:::
-    :::column:::
-       [![Virtual Machines icon](../images/virtualmachine.png)](https://developer.microsoft.com/microsoft-edge/tools/vms/)<br>
-        **[Virtual Machines for Testing](https://developer.microsoft.com/microsoft-edge/tools/vms/)**<br>
-        Test IE11 and Microsoft Edge Legacy using free Windows virtual machines you download and manage locally.<br>
-        [Download a Virtual Machine](https://developer.microsoft.com/microsoft-edge/tools/vms/)
     :::column-end:::
     :::column:::
        [![WebHint icon](../images/webhint.png)](https://webhint.io/)<br>
@@ -263,7 +256,7 @@ Microsoft offers a variety of resources for web developers, including new tools 
 
 ## Transitioning between Mac and Windows
 
-Check out our [guide to transitioning between between a Mac and Windows](../dev-environment/mac-to-windows.md) (or Windows Subsystem for Linux) development environment.
+Check out our [guide to transitioning between a Mac and Windows](../dev-environment/mac-to-windows.md) (or Windows Subsystem for Linux) development environment.
 
 - [Keyboard shortcuts](../dev-environment/mac-to-windows.md#keyboard-shortcuts)
 - [Trackpad shortcuts](../dev-environment/mac-to-windows.md#trackpad-shortcuts)

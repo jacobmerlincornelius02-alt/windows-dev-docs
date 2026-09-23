@@ -55,7 +55,7 @@ Windows apps can use a light or dark application theme. The theme affects the co
 
 ![dark theme](images/color/dark-theme.svg)
 
-By default, your Windows app's theme is the user’s theme preference from Windows Settings or the device's default theme (i.e., dark on Xbox). However, you can set the theme for your Windows app.
+By default, your Windows app's theme is the user’s theme preference from Windows Settings or the device's default theme. However, you can set the theme specifically for your Windows app.
 
 ### Changing the theme
 
@@ -86,6 +86,12 @@ Common controls automatically use [theme brushes](../style/xaml-theme-resources.
 For example, here's an illustration of how the [AutoSuggestBox](../controls/auto-suggest-box.md) uses theme brushes:
 
 ![theme brushes control example](images/color/theme-brushes.svg)
+
+> [!TIP]
+> [!div class="nextstepaction"]
+> For a visual overview of available theme brushes, see the WinUI 3 Gallery app: [Colors](winui3gallery://item/Colors)
+
+> The **WinUI 3 Gallery** app includes interactive examples of most WinUI 3 controls, features, and functionality. Get the app from the [Microsoft Store](https://www.microsoft.com/store/productId/9P3JFPWWDZRC) or get the source code on [GitHub](https://github.com/microsoft/WinUI-Gallery)
 
 ### Using theme brushes
 
@@ -279,7 +285,8 @@ Be aware of how colorblindness could affect the usability of your application. F
     :::column-end:::
 :::row-end:::
 
-## Related articles
+## Related
 
 - [XAML Styles](../style/xaml-styles.md)
 - [XAML Theme Resources](../style/xaml-theme-resources.md)
+- [WinUI 3 Gallery - Colors](winui3gallery://item/Colors)

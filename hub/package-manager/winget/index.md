@@ -40,9 +40,9 @@ $progressPreference = 'silentlyContinue'
 Write-Information "Downloading WinGet and its dependencies..."
 Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
-Invoke-WebRequest -Uri https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.7.3/Microsoft.UI.Xaml.2.7.x64.appx -OutFile Microsoft.UI.Xaml.2.7.x64.appx
+Invoke-WebRequest -Uri https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx -OutFile Microsoft.UI.Xaml.2.8.x64.appx
 Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
-Add-AppxPackage Microsoft.UI.Xaml.2.7.x64.appx
+Add-AppxPackage Microsoft.UI.Xaml.2.8.x64.appx
 Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 ```
 
@@ -95,6 +95,7 @@ The current preview of the **winget** tool supports the following commands.
 | [import](import.md) | Installs all the packages in a file. |
 | [pin](pinning.md) | Manage package pins. |
 | [configure](configure.md) | Configures the system into a desired state. |
+| [download](download.md) | Downloads the specified application's installer. |
 
 ### Options
 
@@ -115,6 +116,7 @@ The **winget** tool supports the following types of installers:
 * INNO
 * NULLSOFT
 * MSI
+* WIX
 * APPX
 * MSIX
 * BURN
@@ -122,17 +124,14 @@ The **winget** tool supports the following types of installers:
 
 ## Scripting winget
 
-You can author batch scripts and PowerShell scripts to install multiple applications.
+You can use the following syntax to install multiple applications in a single command.
+
+`USAGE: winget install <query1> <query2> ...`
+
+### Example
 
 ``` CMD
-@echo off  
-Echo Install Powertoys and Terminal  
-REM Powertoys  
-winget install Microsoft.Powertoys  
-if %ERRORLEVEL% EQU 0 Echo Powertoys installed successfully.  
-REM Terminal  
-winget install Microsoft.WindowsTerminal  
-if %ERRORLEVEL% EQU 0 Echo Terminal installed successfully.   %ERRORLEVEL%
+winget install Microsoft.WindowsTerminal Microsoft.PowerToys Microsoft.VisualStudioCode
 ```
 
 > [!NOTE]

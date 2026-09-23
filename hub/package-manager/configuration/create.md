@@ -1,7 +1,7 @@
 ---
 title: How to author a WinGet Configuration file
-description: Learn how to create a WinGet Configuration. 
-ms.date: 05/23/2023
+description: Learn how to create a WinGet Configuration.
+ms.date: 09/28/2023
 ms.topic: overview
 ---
 
@@ -16,12 +16,11 @@ To create a WinGet Configuration file:
 5. Determine the directives and settings needed for each configuration resource.
 6. Determine the dependencies for each resource.
 
-> [!IMPORTANT]
-> WinGet Configuration is currently in preview. To use a WinGet Configuration file with the [`winget configure` command](../winget/configure.md), you must first [enable the experimental configuration feature](index.md#enable-the-winget-configuration-experimental-configuration-preview-feature).
+Learn more about using the [WinGet configure command](/windows/package-manager/winget/configure).
 
 ## File format
 
-Windows Package Manager uses manifests (YAML files) to locate and install packages for Windows users. WinGet Configuration files use the same YAML style format, adding a JSON schema specification to help define the structure and validation of the file. To further assist in detecting whether the format of your WinGet Configuration file is valid, we recomend using [Visual Studio Code](https://code.visualstudio.com/download) with the [YAML extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) by RedHat to support proper syntax, help detect any formatting errors, provide hover support and auto-completion (when linked to the JSON schema file), and ensure valid formatting.
+Windows Package Manager uses manifests (YAML files) to locate and install packages for Windows users. WinGet Configuration files use the same YAML style format, adding a JSON schema specification to help define the structure and validation of the file. To further assist in detecting whether the format of your WinGet Configuration file is valid, we recommend using [Visual Studio Code](https://code.visualstudio.com/download) with the [YAML extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) by RedHat to support proper syntax, help detect any formatting errors, provide hover support and auto-completion (when linked to the JSON schema file), and ensure valid formatting.
 
 ### File naming convention
 
@@ -46,7 +45,7 @@ If an assertion returns “false” to indicate the system is not in the desired
 
 ### Resources section
 
-The list of Resources cover all of the software, tools, packages, etc. that need to be installed and the configurations settings for your Windows operating system or installed applications. Each resource will need to be given a name, description of the directive to be carried out and the PowerShell module that will be responsible for carrying out that directive, and any associated settings or dependencies.
+The list of Resources covers all of the software, tools, packages, etc. that need to be installed and the configurations settings for your Windows operating system or installed applications. Each resource will need to be given a name, description of the directive to be carried out and the PowerShell module that will be responsible for carrying out that directive, as well as any associated settings or dependencies.
 
 ## Example WinGet Configuration file
 
@@ -95,11 +94,11 @@ The components of this file consist of:
 
 1. **Schema**: The first line in your configuration file should contain the following comment: `# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/<most recent schema version #>` to establish the DSC schema being followed by the file. To find the most recent version of the WinGet Configuration schema, go to [https://aka.ms/configuration-dsc-schema/](https://aka.ms/configuration-dsc-schema/). The most recent schema number at the time of this example is `0.2`, so the schema was entered as: `# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2`.
 
-2. **Properties**: The root node for a configuration file is “properties” which must contain a configuration version (`configurationVersion: 0.2.0` in this example). This version should be updated in accordance with updates to the configuration file. The properties node should contain an `assertions` node and a `resources` node
+2. **Properties**: The root node for a configuration file is `properties` which must contain a configuration version (`configurationVersion: 0.2.0` in this example). This version should be updated in accordance with updates to the configuration file. The properties node should contain an `assertions` node and a `resources` node.
 
 3. **Assertions**: List the preconditions (or prerequisites) required for this configuration in this section.
 
-4. **Resource**: Both the "Assertions" and "Resources" list sections consist of individual `resource` nodes to represent the set up task. The `resource` should be given the name of the PowerShell module followed by the name of the module's DSC resource that will be invoked to apply your desired state: `{ModuleName}/{DscResource}`. When applying a configuration, WinGet will know to install the module from the [PowerShell Gallery](https://www.powershellgallery.com/packages) and invoke the specified [DSC resource](/powershell/dsc/concepts/resources).
+4. **Resources**: Both the `assertions` and `resources` list sections consist of individual `resource` nodes to represent the set up task. The `resource` should be given the name of the PowerShell module followed by the name of the module's DSC resource that will be invoked to apply your desired state: `{ModuleName}/{DscResource}`. Each resource must include `directives` and `settings`. Optionally, it can also include an `id` value. When applying a configuration, WinGet will know to install the module from the [PowerShell Gallery](https://www.powershellgallery.com/packages) and invoke the specified [DSC resource](/powershell/dsc/concepts/resources).
 
 5. **Directives**: The `directives` section provides information about the module and the resource. This section should include a `description` value to describe the configuration task being accomplished by the module. The `allowPrerelease` value enables you to choose whether or not the configuration will be allowed (`true`) to use "Prerelease" modules from the [PowerShell Gallery](https://www.powershellgallery.com/packages).
 
@@ -107,7 +106,7 @@ The components of this file consist of:
 
 7. **Dependencies**: The `dependsOn` value of a resource determines whether any other assertion or resource must be complete prior to beginning this task. If the dependency failed, this resource will also automatically fail.
 
-8. **ID**: A unique identifier for the particular resource instance. The id value can be used if another resource has a dependency on this resource being applied first.
+8. **ID**: A unique identifier for the particular resource instance. The `id` value can be used if another resource has a dependency on this resource being applied first.
 
 ## Organizing the Resources section
 

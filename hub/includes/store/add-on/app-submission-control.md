@@ -1,9 +1,7 @@
 ---
-author: hickeys
-ms.author: hickeys
 ms.date: 5/22/2023
 ms.topic: include
-ms.prod: windows
+ms.service: windows
 ---
 
 ## Delete draft submissions and apps

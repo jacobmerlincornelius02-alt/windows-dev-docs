@@ -12,7 +12,7 @@ To edit Package info, select the Package from the Packages page. You must edit e
 
 **Package URL**<br>*Required*
 
-You must enter at least one versioned secure URL pointing to app package (MSI/EXE) hosted on your CDN. An example of versioned secure URL is https://www.contoso.com/downloads/1.1/setup.exe. When customer installs your app from the Store, the Store downloads the package from this URL. You need to follow good CDN practices and ensure that this URL is performant, reliable, and available based on your market selection.
+You must enter at least one versioned secure URL pointing to app package (MSI/EXE) hosted on your CDN. An example of versioned secure URL is `https://www.contoso.com/downloads/1.1/setup.exe`. When customer installs your app from the Store, the Store downloads the package from this URL. You need to follow good CDN practices and ensure that this URL is performant, reliable, and available based on your market selection.
 
 :::image type="content" source="images/msiexe-package-url.png" lightbox="images/msiexe-package-url.png" alt-text="A screenshot of the Packages section where you can provide your package URL details.":::
 
@@ -156,7 +156,7 @@ Select your app type – (EXE/MSI). If you choose EXE, you are required to provi
 
 :::image type="content" source="images/msiexe-packages-set-app-type.png" lightbox="images/msiexe-packages-set-app-type.png" alt-text="A screenshot of the Packages section where you can provide the type (msi/exe) of your app.":::
 
-:::image type="content" source="images/msiexe-packages-exe-overview.png" lightbox="images/msiexe-packages-exe-overview.png" alt-text="A screenshot of the Packages section showing the the additional fields required for exe type of apps.":::
+:::image type="content" source="images/msiexe-packages-exe-overview.png" lightbox="images/msiexe-packages-exe-overview.png" alt-text="A screenshot of the Packages section showing the additional fields required for exe type of apps.":::
 
 **Installer parameters**<br>*Required*
 
@@ -164,7 +164,7 @@ The Store will need to run your installer in silent mode. To support this, you n
 
 :::image type="content" source="images/msiexe-set-installer-parameters.png" lightbox="images/msiexe-set-installer-parameters.png" alt-text="A screenshot of the Packages section where you can provide the installer parameters for your app.":::
 
-For MSI aps, the Store uses the default silent switch ‘/qn’ to run your installer in silent mode.
+For MSI apps, the Store uses the default silent switch ‘/qn’ to run your installer in silent mode.
 
 **Installer handling for your EXE app**<br>*Required*
 

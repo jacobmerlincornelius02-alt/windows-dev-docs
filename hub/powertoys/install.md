@@ -17,7 +17,7 @@ We recommend installing PowerToys via GitHub or Microsoft Store, but alternative
   - Windows 11 (all versions)
   - Windows 10 v2004 (19041) or newer
 - System architecture
-  - x64 and Arm64 architecture are currently supported.
+  - x64 and Arm64 architectures are currently supported.
 - Our installer will install the following runtimes:
   - [Microsoft Edge WebView2 Runtime](https://go.microsoft.com/fwlink/p/?LinkId=2124703) bootstrapper (this will always install the latest version available)
 
@@ -55,15 +55,15 @@ Here are the common commands you may want:
 
 | Command  | Abbreviation | Function     |
 |----------|--------------| ------------ |
-| -quiet   | -q           | Silent install |
-| -silent  | -s           | Silent install |
-| -passive |              | progress bar only install |
-| -layout  |              | create a local image of the bootstrapper |
-| -log     | -l           | log to a specific file |
+| **/quiet**   | **/q**       | Silent install |
+| **/silent**  | **/s**       | Silent install |
+| **/passive** |              | progress bar only install |
+| **/layout**  |              | create a local image of the bootstrapper |
+| **/log**     | **/l**       | log to a specific file |
 
 ### Extracting the MSI from the bundle
 
-Make sure to have [WiX Toolset](https://wixtoolset.org/releases) installed.
+Make sure to have [WiX Toolset v3](https://wixtoolset.org/docs/wix3) installed. The command doesn't work with WiX Toolset v4.
 
 This PowerShell example assumes the default install location for WiX Toolset and the PowerToys installer downloaded to the desktop.
 
@@ -76,7 +76,7 @@ cd $Env:WIX\"bin"
 
 ### Fixes for uninstalling 0.51 and earlier builds issues
 
-If you have an issue where the MSI is not accessible, you can download the installer, that corresponds with the installed version, via the [PowerToys release page](https://github.com/microsoft/PowerToys/releases) and then run the following command. You'll want to change the EXECUTABLE_INSTALLER_NAME to what the file name actually is.
+If you have an issue where the MSI is not accessible, you can download the installer, that corresponds with the installed version, via the [PowerToys release page](https://github.com/microsoft/PowerToys/releases) and then run the following command. You'll want to change EXECUTABLE_INSTALLER_NAME to what the file name actually is.
 
 In PowerShell, run `.\EXECUTABLE_INSTALLER_NAME.exe --extract_msi` and this will extract the MSI to your desktop.
 
@@ -84,14 +84,14 @@ In PowerShell, run `.\EXECUTABLE_INSTALLER_NAME.exe --extract_msi` and this will
 
 In case there are problems with uninstalling a version, there are cleanup scripts available:
 
-- <https://github.com/microsoft/PowerToys/tree/main/tools/CleanUp_tool>
-- <https://github.com/microsoft/PowerToys/tree/main/tools/CleanUp_tool_powershell_script>
+- <github.com/microsoft/PowerToys/tree/main/tools/CleanUp_tool>
+- <github.com/microsoft/PowerToys/tree/main/tools/CleanUp_tool_powershell_script>
 
 ## Community-driven install tools
 
 These community-driven alternative install methods are not officially supported and the PowerToys team does not update or manage these packages.
 
-### Installingwith Chocolatey
+### Installing with Chocolatey
 
 To install [PowerToys](https://community.chocolatey.org/packages/powertoys) using [Chocolatey](https://chocolatey.org/), run the following command from your command line / PowerShell:
 
@@ -107,7 +107,7 @@ choco upgrade powertoys
 
 If you have issues when installing/upgrading, create an issue at the [maintainers GitHub repository](https://github.com/mkevenaar/chocolatey-packages/issues) or follow the [Chocolatey triage process](https://docs.chocolatey.org/en-us/community-repository/users/package-triage-process).
 
-### Installingwith Scoop
+### Installing with Scoop
 
 To install PowerToys using [Scoop](https://scoop.sh/), run the following command from the command line / PowerShell:
 
