@@ -1,18 +1,21 @@
 ---
 description: The Microsoft Store Command Line Interface is a cross-platform CLI that helps developers access the Microsoft Store APIs, for both managed, as well as unmanaged applications.
-title: Microsoft Store Developer CLI
+title: Microsoft Store Developer CLI (MSIX)
 ms.date: 07/27/2025
 ms.topic: article
 ms.localizationpriority: medium
 ---
 
-# Microsoft Store Developer CLI
+# Microsoft Store Developer CLI (MSIX)
+
+> [!NOTE]
+> This page covers MSIX app publishing using Microsoft Store Developer CLI. For information on MSI/EXE app publishing using Microsoft Store Developer CLI, click [here.](./overview-exe.md)
 
 The Microsoft Store Command Line Interface is a cross-platform (Windows, macOS, Linux) CLI that helps developers publish their applications to the Microsoft Store. It allows developers to locally configure their applications projects to publish to the Microsoft Store, as well as actually publish their applications' packages to the Microsoft Store, automatically calling the right [Partner Center APIs](/partner-center/develop/partner-center-rest-api-reference) to upload its packages.
 
 To understand how to use the Store Developer CLI, check out the following video:
 
-[!VIDEO https://learn-video.azurefd.net/vod/player?id=cbc4aad9-e79b-4ff6-a30b-c2399c2624a3]
+>[!VIDEO https://learn-video.azurefd.net/vod/player?id=cbc4aad9-e79b-4ff6-a30b-c2399c2624a3]
 
 ## Prerequisites
 
@@ -40,6 +43,9 @@ msstore
 
 Running in CI environments is also supported, and the Microsoft Store Developer CLI (preview) can be used in your CI/CD pipelines to, for example, automatically publish your applications to the Microsoft Store. More instructions on how to do this can be found [here](./commands.md#cicd-environments).
 
+> [!NOTE]
+> App update operations through Microsoft Store Developer CLI is currently supported for free products only. Paid products will be supported in a future release.
+
 ## Commands
 
 These are the Microsoft Store Developer CLI available commands:
@@ -54,5 +60,6 @@ These are the Microsoft Store Developer CLI available commands:
 | [init](./commands.md#init-command)               | Helps you setup your application to publish to the Microsoft Store.                                                                |
 | [package](./commands.md#package-command)         | Helps you package your Microsoft Store Application as an MSIX.                                                                     |
 | [publish](./commands.md#publish-command)         | Publishes your application to the Microsoft Store.                                                                                 |
+| [flights](./commands.md#flights-command)         | Flights related commands, such as 'list', 'get', 'delete', 'create', 'submission'.                                                 |
 
 For more info, see: [Commands](commands.md).

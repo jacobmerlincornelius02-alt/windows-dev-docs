@@ -24,7 +24,7 @@ On the note page, you'll add a _back_ button, and there are **Save** and **Delet
 
 ## New note
 
-First, you'll handle navigation for an new note.
+First, you'll handle navigation for a new note.
 
 > [!TIP]
 > You can download or view the code for this tutorial from the [GitHub repo](https://github.com/MicrosoftDocs/windows-topic-specific-samples/tree/winui-3/tutorials/winui-notes). To see the code as it is in this step, see this commit: [navigation - new note](https://github.com/MicrosoftDocs/windows-topic-specific-samples/tree/25c23e5976c6b791355b109c7a7a0430ab16a3f9/WinUINotes).
@@ -128,7 +128,7 @@ Now you'll add navigation for existing notes. Currently, when you click the note
 
 Lastly, you need to update the app so that you can navigate back from an individual note to the all notes page.
 
-The WinUI [TitleBar](/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.titlebar) control includes a back button that meets all the Fluent Design guidelines for placement and appearance. You'll use this built-in button for back navigation.
+The WinUI 3 [TitleBar](/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.titlebar) control includes a back button that meets all the Fluent Design guidelines for placement and appearance. You'll use this built-in button for back navigation.
 
 1. Open **MainWindow.xaml**.
 1. Update the XAML for the `TitleBar` with [IsBackButtonVisible](/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.titlebar.isbackbuttonvisible) = `True` and [IsBackButtonEnabled](/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.titlebar.isbackbuttonenabled) bound to the [Frame.CanGoBack](/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.frame.cangoback) property.
@@ -200,9 +200,12 @@ Now you can run your app. Try adding new notes, navigating back and forth betwee
 
 Congratulations! You've completed the _Create a WinUI app_ tutorial!
 
-The following links provide more information about creating apps with WinUI and the Windows App SDK:
+In order to keep things simple and introduce some foundational concepts, this tutorial focused on simplicity over efficiency, and introduced features at the most basic level. So while the app works, there are some things that can be improved.
 
-- [Samples and resources](/windows/apps/get-started/samples)
-- [Design for Windows apps](/windows/apps/design/)
-- [Develop Windows desktop apps](/windows/apps/develop/)
-- [Controls for Windows apps](/windows/apps/design/controls/)
+We recommend that you continue with one of these follow-on tutorials to learn more:
+
+- [WinUI Notes part 2](../winui-notes-pt2/0-intro.md) – Explains more features related to navigation and data binding. You'll update the app to work more efficiently while keeping the same basic architecture.
+
+    **OR**
+
+- [Data binding, dependency injection, and unit testing in WinUI](../winui-mvvm-toolkit/intro.md) – Shows how to implement data binding, dependency injection, and unit testing with the Model-View-ViewModel (MVVM) design pattern. You'll change the app and view models to leverage the MVVM Toolkit.

@@ -1,14 +1,14 @@
 ---
 title: How to Create Command Palette Extensions in C# - Step by Step Guide
 description: Learn how to build custom Command Palette extensions for PowerToys using C#. Complete tutorial with templates, deployment, and best practices for Windows developers.
-ms.date: 08/04/2025
+ms.date: 10/28/2025
 ms.topic: how-to
 ms.keywords: command palette extension, powertoys extension, windows development, c# extension development, visual studio deployment, windows productivity tools
 no-loc: [PowerToys, Windows, Insider]
 # Customer intent: As a Windows developer, I want to learn how to develop an extension for the Command Palette.
 ---
 
-# How to create Command Palette extensions
+# Getting started with Command Palette extensions
 
 Learn how to build custom extensions for the Command Palette using C#. This comprehensive guide covers everything from project setup to deployment, helping you enhance this powerful productivity tool for Windows.
 
@@ -25,8 +25,9 @@ The Command Palette extension system allows developers to create custom commands
 
 **Prerequisites:**
 
-- Visual Studio with C# development workload
+- [Set up your Windows development environment](/windows/apps/get-started/start-here) — install Visual Studio with the required workloads for WinUI and the Windows App SDK
 - Windows 11 with PowerToys installed
+- Enable [Developer mode on Windows](/windows/advanced-settings/developer-mode)
 - Basic knowledge of C# programming
 
 Extensions are written in C#. The fastest way to get started writing extensions is from the Command Palette itself.
@@ -45,7 +46,7 @@ The form will ask you for the following information:
   - The project will be created in a subdirectory of the path you provided.
   - If this path doesn't exist, it will be created for you.
 
-![The "Create a new extension" page of the Windows Command Palette](../../images/command-palette/create-extension-page.png)
+![The "Create a new extension" page of the Windows Command Palette](../images/command-palette/create-extension-page.png)
 
 ## Understanding the extension project structure
 
@@ -101,17 +102,17 @@ Once your package is deployed and running, Command Palette will automatically di
 > **/Properties/launchSettings.json
 > *.pubxml
 > ```
-> These files are used by WinAppSdk to deploy your app as a package. Without it, anyone who clones your repo won't be able to deploy your extension.
+> These files are used by Windows App SDK to deploy your app as a package. Without it, anyone who clones your repo won't be able to deploy your extension.
 
 1. In the Command Palette, type `Reload` and press `Enter`
     1. Make sure to select the `Reload` that has a subtitle of: `Reload Command Palette Extension`
-    ![Screenshot of reload](../../images/command-palette/reload.png)
+    ![Screenshot of reload](../images/command-palette/reload.png)
 1. In the Command Palette, scroll all the way down to the bottom of the list of commands
     1. or `up arrow` once to get to the end
 1. Press `Enter` on your \<ExtensionName\>
 1. You should see a single command that says `TODO: Implement your extension here`.
 
-![A screenshot of the empty extension template, running in the command palette](../../images/command-palette/initial-created-extension-list.png)
+![A screenshot of the empty extension template, running in the command palette](../images/command-palette/initial-created-extension-list.png)
 
 Congrats! You've made your first extension! Now let's go ahead and actually add some commands to it.
 

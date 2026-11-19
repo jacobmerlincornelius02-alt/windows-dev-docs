@@ -16,13 +16,18 @@ PowerToys Awake is a Windows utility that keeps your computer awake without modi
 You can use PowerToys Awake directly from PowerToys Settings or as a standalone executable (`PowerToys.Awake.exe` in the PowerToys installation folder).
 
 > [!NOTE]
-> PowerToys Awake does not modify any of the Windows power plan settings and does not depend on a custom power plan configuration. Instead, it spawns background threads that tell Windows that they require a specific state of the machine. Once PowerToys Awake exits, the threads are terminated and the computer will resume its standard power plan behavior.
+> PowerToys Awake is active only when you are signed in and it is enabled. **Awake doesn't function when the lock screen is displayed.** Your normal power plan is active at other times.
+>
+> PowerToys Awake doesn't modify any of the Windows power plan settings and doesn't depend on a custom power plan configuration. Instead, it spawns background threads that tell Windows that they require a specific state of the machine. Once PowerToys Awake exits, the threads are terminated and the computer resumes its standard power plan behavior.
+
+> [!IMPORTANT]
+> PowerToys Awake temporarily overrides your power plan choices and is intended for use while you are at your computer or in private environments. For persistent keep-awake needs, especially when stepping away in shared environments, configure your Windows power plan settings directly and lock your computer for security.
 
 ## Settings
 
 In the PowerToys Settings, start PowerToys Awake by toggling **Enable Awake** on. Once enabled, the application will manage the power and screen state of the computer.
 
-:::image type="content" source="../images/powertoys-awake/pt-awake-settings-menu.png" alt-text="Screenshot of PowerToys Awake settings menu showing enable toggle and power mode options.":::
+:::image type="content" source="images/awake/awake-settings-menu.png" alt-text="Screenshot of PowerToys Awake settings menu showing enable toggle and power mode options.":::
 
 PowerToys Awake supports a variety of modes that can be used to control computer and screen power behaviors:
 
@@ -42,20 +47,25 @@ While PowerToys Awake can keep the computer awake indefinitely or temporarily, i
 
 This feature only works when PowerToys Awake is enabled and has one of the custom power states selected. It also does not prevent any user-initiated actions, such as manually putting the computer to sleep or hibernating it.
 
+## Lock screen behavior
+PowerToys Awake doesn't work when the lock screen is displayed. This limitation exists because the lock screen operates in a separate security context from the user session. When you lock your computer, Windows transitions to this secure context, and user-mode applications like PowerToys Awake can't maintain their power requests.
+
+If you need your computer to stay awake while locked, modify your Windows power plan settings directly instead of using PowerToys Awake.
+
 ## System tray
 
 To manage the execution of the tool from the system tray, right-click on the PowerToys Awake icon.
 
-![Awake settings managed from the system tray on Windows](../images/powertoys-awake/icon-change-selection.gif)
+![Awake settings managed from the system tray on Windows](images/awake/icon-change-selection.gif)
 
 PowerToys Awake tray icon represents the currently selected mode:
 
 | State | Icon | Description |
 |:------|:-----|:------------|
-| Disabled (Passive) | ![Passive mode icon for PowerToys Awake](../images/powertoys-awake/passive.png)       | PowerToys Awake is running but does not hold any power states. Your operating system's power plan is in effect. |
-| Timed (Interval)   | ![Timed mode icon for PowerToys Awake](../images/powertoys-awake/timed.png)           | You set PowerToys Awake to keep your computer awake for a pre-defined time interval (for example, 30 minutes). |
-| Expirable          | ![Expirable mode icon for PowerToys Awake](../images/powertoys-awake/expirable.png)    | PowerToys Awake will be keeping the defined power request until a date and time that you've set through PowerToys settings or in the configuration file. |
-| Indefinite         | ![Indefinite mode icon for PowerToys Awake](../images/powertoys-awake/indefinite.png) | PowerToys Awake will continue to keep your computer awake until you exit the application. |
+| Disabled (Passive) | ![Passive mode icon for PowerToys Awake](images/awake/passive.png)       | PowerToys Awake is running but does not hold any power states. Your operating system's power plan is in effect. |
+| Timed (Interval)   | ![Timed mode icon for PowerToys Awake](images/awake/timed.png)           | You set PowerToys Awake to keep your computer awake for a pre-defined time interval (for example, 30 minutes). |
+| Expirable          | ![Expirable mode icon for PowerToys Awake](images/awake/expirable.png)    | PowerToys Awake will be keeping the defined power request until a date and time that you've set through PowerToys settings or in the configuration file. |
+| Indefinite         | ![Indefinite mode icon for PowerToys Awake](images/awake/indefinite.png) | PowerToys Awake will continue to keep your computer awake until you exit the application. |
 
 The tray icon tooltip will also provide a hint about the currently active PowerToys Awake mode.
 

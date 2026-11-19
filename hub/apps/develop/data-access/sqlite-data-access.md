@@ -1,18 +1,52 @@
 ---
-title: Use a SQLite database in a Windows app
+title: "Tutorial: Use a SQLite database in a Windows app"
 description: Learn how to use a SQLite database in a Windows app to store and retrieve data in a lightweight database on the user's device.
-ms.date: 08/01/2024
+ms.date: 09/25/2025
 ms.topic: how-to
-keywords: windows 10, windows 11, windows app sdk, SQLite, database
+keywords: windows 10, windows 11, windows app sdk, winui, SQLite, database
 ms.localizationpriority: medium
+ms.custom: copilot-scenario-highlight
 #customer intent: As a Windows developer, I want to learn how to use a SQLite database in a Windows app to store and retrieve data in a lightweight database on the user's device.
 ---
 
-# Use a SQLite database in a Windows app
+# Tutorial: Use a SQLite database in a Windows app
 
-You can use SQLite to store and retrieve data in a lightweight database on the user's device. This guide shows you how to do it in your Windows App SDK apps.
+[SQLite](https://sqlite.org/index.html) provides a reliable, lightweight database solution for storing data locally in Windows apps. Unlike traditional database systems that require separate server installations and complex configurations, SQLite runs entirely within your application process and stores data in a single file on the user's device.
 
-## Some benefits of using SQLite for local storage
+This tutorial shows you how to integrate SQLite into your WinUI application using Microsoft's recommended data access libraries. You'll learn to set up a database, create tables, and implement basic data operations—all while following security best practices to protect against common vulnerabilities.
+
+## What you'll accomplish
+
+In this tutorial, you'll learn how to:
+
+- Configure your Windows app to use SQLite with the Microsoft.Data.Sqlite library
+- Create and initialize a local database
+- Implement secure data insertion and retrieval methods
+- Build a simple user interface to interact with your data
+
+## Prerequisites
+
+To complete this tutorial, you need:
+
+- Visual Studio 2026 or later with **WinUI application development** workload
+- Basic familiarity with C# and XAML
+- Understanding of fundamental database concepts
+
+## Key improvements this approach offers
+
+Using SQLite for local data storage in your Windows app offers several advantages:
+
+- Simplified deployment: No separate database server installation required
+- Enhanced security: Data stays local on the user's device
+- Improved performance: Direct file access eliminates network latency
+- Reduced complexity: Single-file database simplifies backup and migration
+
+The techniques you'll learn apply to any Windows app that needs to store structured data locally, from simple settings storage to complex data management scenarios.
+
+> [!TIP]
+> You can use AI assistance to help [avoid SQL injection attacks in SQLite](#avoid-sql-injection-attacks).
+
+## Benefits of SQLite for local storage
 
 :heavy_check_mark: SQLite is lightweight and self-contained. It's a code library without any other dependencies. There's nothing to configure.
 
@@ -30,7 +64,7 @@ We recommend that you use either [Entity Framework Core](/ef/core/) or the open-
 
 ### Entity Framework Core
 
-Entity Framework (EF) is an object-relational mapper that you can use to work with relational data by using domain-specific objects. If you've already used this framework to work with data in other .NET apps, you can use the same code in your Windows App SDK app and it will work with appropriate changes to the connection string.
+Entity Framework (EF) is an object-relational mapper that you can use to work with relational data by using domain-specific objects. If you've already used this framework to work with data in other .NET apps, you can use the same code in your WinUI app and it will work with appropriate changes to the connection string.
 
 To try it out, see [Getting Started with EF Core](/ef/core/get-started/overview/first-app).
 
@@ -40,9 +74,9 @@ The [Microsoft.Data.Sqlite](/dotnet/api/microsoft.data.sqlite) library implement
 
 The rest of this guide helps you to use this library.
 
-## Set up your solution to use the Microsoft.Data.SQlite library
+## Set up your solution to use the Microsoft.Data.Sqlite library
 
-We'll start with a basic Windows App SDK project, and then install the SQLite NuGet package.
+We'll start with a basic WinUI project, and then install the SQLite NuGet package. See [Create a WinUI app](/windows/apps/tutorials/winui-notes/intro) for instructions on how to create your first WinUI project.
 
 All supported versions of Windows support SQLite, so your app does not have to package SQLite libraries. Instead, your app can use the version of SQLite that comes installed with Windows. This helps you in a few ways.
 
@@ -60,7 +94,7 @@ Let's start by adding a class to your project named **DataAccess**. If you plan 
 
     At this point, you have a choice. You can use the version of SQLite that is included with Windows or if you have some reason to use a specific version of SQLite, you can include the SQLite library in your package. We are going to use the version of SQLite that's included with Windows.
 
-1. Choose the **Browse** tab, search for the **Microsoft.Data.SQLite** package, and then install the latest stable version.
+1. Choose the **Browse** tab, search for the **Microsoft.Data.Sqlite** package, and then install the latest stable version.
 
     ![SQLite NuGet package](images/sqlite-nuget-package.png)
 
@@ -82,8 +116,8 @@ We'll do these things:
 
 Open the `DataAccess` class in your project and make that class static.
 
->[!NOTE]
->While our example will place data access code in a static class, this is a design choice and is completely optional.
+> [!NOTE]
+> While the example will put your data access code in a static class, this is a design choice and is completely optional.
 
 ```csharp
 public static class DataAccess
@@ -96,6 +130,7 @@ Add the following `using` statements to the top of this file.
 ```csharp
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using Windows.Storage;
 ```
 
 ### Initialize the SQLite database
@@ -129,7 +164,7 @@ public async static void InitializeDatabase()
 
 This code creates the SQLite database and stores it in the application's local data store.
 
-In this example, we name the database `sqlliteSample.db` but you can use whatever name you want as long as you use that name in all [SqliteConnection](/dotnet/api/microsoft.data.sqlite.sqliteconnection) objects that you instantiate. In a production application, connection information such as the database filename should be stored in app configuration rather than hard-coded (see [**Adding Azure App Configuration by using Visual Studio Connected Services**](/visualstudio/azure/vs-azure-tools-connected-services-app-configuration)).
+In this example, we name the database `sqliteSample.db` but you can use whatever name you want as long as you use that name in all [SqliteConnection](/dotnet/api/microsoft.data.sqlite.sqliteconnection) objects that you instantiate. In a production application, connection information such as the database filename should be stored in app configuration rather than hard-coded (see [**Adding Azure App Configuration by using Visual Studio Connected Services**](/visualstudio/azure/vs-azure-tools-connected-services-app-configuration)).
 
 In the constructor of the **App.xaml.cs** file of your project, call the `InitializeDatabase` method of the `DataAccess` class. This will ensure that the database is created or opened each time the app starts.
 
@@ -198,7 +233,7 @@ public static List<string> GetData()
 
 The [Read](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.read#Microsoft_Data_Sqlite_SqliteDataReader_Read) method advances through the rows of returned data. It returns `true` if there are rows left, otherwise it returns `false`.
 
-The [GetString](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.getstring#Microsoft_Data_Sqlite_SqliteDataReader_GetString_System_Int32_) method returns the value of the specified column as a string. It accepts an integer value that represents the zero-based column ordinal of the data that you want. You can use similar methods such as [GetDataTime](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.getdatetime#Microsoft_Data_Sqlite_SqliteDataReader_GetDateTime_System_Int32_) and [GetBoolean](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.getboolean#Microsoft_Data_Sqlite_SqliteDataReader_GetBoolean_System_Int32_). Choose a method based on what type of data the column contains.
+The [GetString](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.getstring#Microsoft_Data_Sqlite_SqliteDataReader_GetString_System_Int32_) method returns the value of the specified column as a string. It accepts an integer value that represents the zero-based column ordinal of the data that you want. You can use similar methods such as [GetDateTime](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.getdatetime#Microsoft_Data_Sqlite_SqliteDataReader_GetDateTime_System_Int32_) and [GetBoolean](/dotnet/api/microsoft.data.sqlite.sqlitedatareader.getboolean#Microsoft_Data_Sqlite_SqliteDataReader_GetBoolean_System_Int32_). Choose a method based on what type of data the column contains.
 
 The ordinal parameter isn't as important in this example because we are selecting all of the entries in a single column. However, if multiple columns are part of your query, use the ordinal value to obtain the column you want to pull data from.
 
@@ -247,6 +282,18 @@ public MainWindow()
 ```
 
 That's it. Explore the [Microsoft.Data.Sqlite](/dotnet/api/microsoft.data.sqlite) to see what other things you can do with your SQLite database. Check out the links below to learn about other ways to use data in your Windows apps.
+
+## Avoid SQL injection attacks
+
+The code in this example uses parameterized queries to prevent SQL injection attacks. Never concatenate user input into a SQL query string. Always use parameters. You can ask Copilot for more tips on avoiding SQL injection attacks.
+
+The following text shows an example prompt for Copilot:
+
+```copilot-prompt
+Can you provide some best practices to avoid SQL injection attacks when writing SQLite queries in C# code?
+```
+
+Copilot is powered by AI, so surprises and mistakes are possible. For more information, see [Copilot FAQs](https://aka.ms/copilot-general-use-faqs).
 
 ## Related content
 

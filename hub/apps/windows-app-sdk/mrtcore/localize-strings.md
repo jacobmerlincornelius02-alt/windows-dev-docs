@@ -1,7 +1,7 @@
 ---
 description: If you want your app to support different display languages, and you have string literals in your code or XAML markup or app package manifest, then move those strings into a Resources File (.resw). You can then make a translated copy of that Resources File for each language that your app supports.
 title: Localize strings in your UI and app package manifest
-ms.date: 07/14/2025
+ms.date: 06/02/2026
 ms.topic: how-to
 keywords: windows 10, windows 11, winui, windows app sdk, resource, image, asset, MRT, qualifier
 ms.localizationpriority: medium
@@ -144,16 +144,23 @@ You only need to add `/<resources-file-name>/` before the string resource identi
 The code example below assumes that `ErrorMessages.resw` contains a resource whose name is "MismatchedPasswords" and whose value describes the error.
 
 ```csharp
-var resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader("ErrorMessages");
+var resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader(
+    Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.GetDefaultResourceFilePath(),
+    "ErrorMessages");
 this.myXAMLTextBlockElement.Text = resourceLoader.GetString("MismatchedPasswords");
 ```
+
+> [!NOTE]
+> The single-parameter `ResourceLoader(String)` constructor takes a `.pri` file path, not a resource map name. To load a named resource subtree (for example, from a separate `.resw` file) using the default `.pri`, use the two-parameter constructor: `ResourceLoader(ResourceLoader.GetDefaultResourceFilePath(), "YourResourceMap")`.
 
 If you were to move your "AppDisplayName" resource out of `Resources.resw` and into `ManifestResources.resw`, then in your app package manifest you would change `ms-resource:AppDisplayName` to `ms-resource:/ManifestResources/AppDisplayName`.
 
 If a resource file name is segmented (it contains "." characters), then leave the dots in the name when you reference it. **Don't** replace dots with forward slash ("/") characters, like you would for a resource name.
 
 ```csharp
-var resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader("Err.Msgs");
+var resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader(
+    Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.GetDefaultResourceFilePath(),
+    "Err.Msgs");
 ```
 
 If in doubt, you can use [MakePri.exe](/windows/uwp/app-resources/makepri-exe-command-options) to dump your app's PRI file. Each resource's `uri` is shown in the dumped file.
@@ -168,7 +175,7 @@ The default [ResourceContext](/windows/windows-app-sdk/api/winrt/microsoft.windo
 
 But there might be times when you want your app to override the system settings and be explicit about the language, scale, or other qualifier value to use when looking for a matching Resources File to load. For example, you might want your users to be able to select an alternative language for tooltips or error messages.
 
-You can do that by constructing a new **ResourceContext**, overriding its values, and then using that context object in your string lookups.
+You can do that by constructing a new **ResourceContext**, overriding its values, and then using that context object in your string lookups. For a similar example using image resources, see [Load an image for a specific language or other context](images-tailored-for-scale-theme-contrast.md#load-an-image-for-a-specific-language-or-other-context).
 
 ```csharp
 var resourceManager = new Microsoft.Windows.ApplicationModel.Resources.ResourceManager();
@@ -191,7 +198,9 @@ The string resources of a referenced Class Library are typically added into a su
 A library can get a **ResourceLoader** for its own resources. For example, the following code illustrates how either a library or an app that references it can get a **ResourceLoader** for the library's string resources.
 
 ```csharp
-var resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader("ContosoControl/Resources");
+var resourceLoader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader(
+    Microsoft.Windows.ApplicationModel.Resources.ResourceLoader.GetDefaultResourceFilePath(),
+    "ContosoControl/Resources");
 this.myXAMLTextBlockElement.Text = resourceLoader.GetString("exampleResourceName");
 ```
 
@@ -231,11 +240,36 @@ To use resources in unpackaged applications, you should do a few things:
 > [!IMPORTANT]
 > You must manually rebuild PRI files whenever resources are modified. We recommend using a post-build script that handles the [MakePri.exe](/windows/uwp/app-resources/compile-resources-manually-with-makepri) command and copies the resources.pri output to the .exe directory.
 
+## Localize a WinUI 3 packaged app
+
+To ensure proper localization of a packaged WinUI 3 desktop app, declare each supported language in the **package.appxmanifest** file of your project. When you build the project, the specified languages are added to the generated app manifest (**AppxManifest.xml**) and the corresponding resources are used.
+
+> [!NOTE]
+> Unpackaged WinUI apps (see [Create your first WinUI project](/windows/apps/winui/winui3/create-your-first-winui3-app)) don't contain a `package.appxmanifest` file, so no further action is needed after [adding the appropriate resources](#store-strings-in-a-resources-file) to the project.
+
+1. Open the `.wapproj`'s `package.appxmanifest` in a text editor and locate the following section:
+
+    ```xml
+    <Resources>
+        <Resource Language="x-generate"/>
+    </Resources>
+    ```
+
+2. Replace the `<Resource Language="x-generate">` with `<Resource />` elements for each of your supported languages. For example, the following markup specifies that "en-US" and "es-ES" localized resources are available:
+
+    ```xml
+    <Resources>
+        <Resource Language="en-US"/>
+        <Resource Language="es-ES"/>
+    </Resources>
+    ```
+
 ## Important APIs
 
 - [ApplicationModel.Resources.ResourceLoader](/windows/windows-app-sdk/api/winrt/microsoft.windows.applicationmodel.resources.resourceloader)
 
 ## See also
 
+- [Make your app localizable](/windows/apps/design/globalizing/prepare-your-app-for-localization)
 - [MRT Core sample](https://github.com/microsoft/WindowsAppSDK-Samples/tree/main/Samples/ResourceManagement)
 - [How to load string resources](/previous-versions/windows/apps/hh965323(v=win.10))

@@ -2,7 +2,7 @@
 description: Learn how to detect system theme changes for dark or light mode.
 title: Support Dark and Light themes in Win32 apps
 ms.topic: how-to
-ms.date: 05/05/2022
+ms.date: 06/16/2026
 ms.localizationpriority: medium
 ---
 
@@ -111,7 +111,7 @@ wprintf(L"\nisDarkMode: %u\n", isDarkMode);
 To automatically track when the Dark mode setting changes during an app session, you can wrap your checks like this.
 
 ```cpp
-auto revoker = settings.ColorValuesChanged([settings](auto&&...)
+auto revoker = settings.ColorValuesChanged([settings](auto const& /*sender*/, auto const& /*args*/)
 {
     auto foregroundRevoker = settings.GetColorValue(UIColorType::Foreground);
     bool isDarkModeRevoker = static_cast<bool>(IsColorLight(foregroundRevoker));
@@ -138,7 +138,7 @@ int main()
     bool isDarkMode = static_cast<bool>(IsColorLight(foreground));
     wprintf(L"\nisDarkMode: %u\n", isDarkMode);
 
-    auto revoker = settings.ColorValuesChanged([settings](auto&&...)
+    auto revoker = settings.ColorValuesChanged([settings](auto const& /*sender*/, auto const& /*args*/)
         {
             auto foregroundRevoker = settings.GetColorValue(UIColorType::Foreground);
             bool isDarkModeRevoker = static_cast<bool>(IsColorLight(foregroundRevoker));
@@ -229,7 +229,7 @@ HRESULT DwmSetWindowAttribute(
 );
 ```
 
-After passing `hWnd` (the handle to the window you want to change) as your first parameter, you need to pass in `DWMWA_USE_IMMERSIVE_DARK_MODE` as the `dwAttribute` parameter. This is a constant in the DWM API that lets the Windows frame be drawn in Dark mode colors when the Dark mode system setting is enabled. If you switch to Light mode, you will have to change `DWMWA_USE_IMMERSIVE_DARK_MODE` from 20 to 0 for the title bar to be drawn in light mode colors.
+After passing `hWnd` (the handle to the window you want to change) as your first parameter, you need to pass in `DWMWA_USE_IMMERSIVE_DARK_MODE` as the `dwAttribute` parameter. This is a constant in the DWM API that lets the Windows frame be drawn in Dark mode colors when the Dark mode system setting is enabled. If you switch to Light mode, keep `DWMWA_USE_IMMERSIVE_DARK_MODE` unchanged and set the `BOOL` passed through `pvAttribute` to `FALSE` for the title bar to be drawn in light mode colors.
 
 The `pvAttribute` parameter points to a value of type `BOOL` (which is why you made the `BOOL` value earlier). You need `pvAttribute` to be `TRUE` to honor Dark mode for the window. If `pvAttribute` is `FALSE`, the window will use Light Mode.
 
@@ -271,6 +271,5 @@ When this code is run, the app title bar should be dark:
 
 ## See also
 
-- [Make your app great on Windows 11](../../../get-started/make-apps-great-for-windows.md)
 - [Accessible text requirements](../../../design/accessibility/accessible-text-requirements.md)
 - [Desktop Windows Manager (DWM)](/windows/win32/dwm/dwm-overview)
